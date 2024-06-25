@@ -39,27 +39,33 @@ int main() {
 
     printf("Initial list:\n");
     print_list(list);
+    // node_t *left_node = NULL;
+    // list_search(list, 20, &left_node);
 
-    node_t *left_node = NULL;
-    node_t *found_node = list_search(list, 20, &left_node);
-    if (found_node) {
-        printf(" found_node: %p \n", (void *)found_node);
-        if (found_node->data == 20) {
-            printf("Found node with value 20\n");
-        }
-    } else {
-        printf("Node with value 20 not found\n");
-    }
+    printf("Remove 20\n");
+    list_remove(list,20);
+    print_list(list);
 
-    found_node = list_search(list, 40, &left_node);
-    if (found_node) {
-        printf(" found_node: %p \n", (void *)found_node);
-        if (found_node->data == 40) {
-            printf("Found node with value 40\n");
-        }
-    } else {
-        printf("Node with value 40 not found\n");
-    }
+    // node_t *left_node = NULL;
+    // node_t *found_node = list_search(list, 20, &left_node);
+    // if (found_node) {
+    //     printf(" found_node: %p \n", (void *)found_node);
+    //     if (found_node->data == 20) {
+    //         printf("Found node with value 20\n");
+    //     }
+    // } else {
+    //     printf("Node with value 20 not found\n");
+    // }
+
+    // found_node = list_search(list, 40, &left_node);
+    // if (found_node) {
+    //     printf(" found_node: %p \n", (void *)found_node);
+    //     if (found_node->data == 40) {
+    //         printf("Found node with value 40\n");
+    //     }
+    // } else {
+    //     printf("Node with value 40 not found\n");
+    // }
 
     return 0;
 }

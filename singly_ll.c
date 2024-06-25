@@ -60,6 +60,7 @@ bool add_tail(list_t *the_list, val_t val) {
     }
 }
 
+
 node_t *list_search(list_t *set, val_t val, node_t **left_node) {
     node_t *left_node_next = NULL, *right_node = NULL;
 
@@ -84,12 +85,14 @@ node_t *list_search(list_t *set, val_t val, node_t **left_node) {
 
         right_node = t;
 
-        printf("left_node_next: %p, right_node: %p, right_node->data: %" PRIdPTR "\n",
-               (void *)left_node_next, (void *)right_node, right_node->data);
+        printf("left_node: %" PRIdPTR " (%p), right_node: %" PRIdPTR " (%p)\n",
+           *left_node != NULL ? (*left_node)->data : 0, 
+           (void *)(*left_node),
+           right_node != NULL ? right_node->data : 0, 
+           (void *)right_node);
 
         if (left_node_next == right_node) {
             if (!is_marked_ref(right_node->next)) {
-                printf("return right_node :%p\n", (void *)right_node);
                 return right_node;
             }
         } else {
@@ -101,3 +104,28 @@ node_t *list_search(list_t *set, val_t val, node_t **left_node) {
         }
     }
 }
+
+bool list_remove(list_t *the_list, val_t val) {
+    bool removed = false;
+
+    while (1) {
+        node_t *left = NULL;
+        node_t *right = list_search(the_list, val, &left);
+
+        /* check if we found our node */
+        if ((right == the_list->tail) || (right->data != val)) {
+            return removed;  // Return true if any element was removed
+        }
+
+        node_t *right_succ = right->next;
+        if (!is_marked_ref(right_succ)) {
+            if (CAS_PTR(&(right->next), right_succ, get_marked_ref(right_succ)) == right_succ) {
+                FAD_U32(&(the_list->size));
+                removed = true;
+            }
+        }
+    }
+}
+
+
+

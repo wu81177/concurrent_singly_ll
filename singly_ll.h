@@ -20,6 +20,6 @@ typedef struct {
 list_t *list_new();
 bool add_tail(list_t *the_list, val_t val);
 node_t *list_search(list_t *set, val_t val, node_t **left_node);
-void print_list(list_t* list);
+bool list_remove(list_t *the_list, val_t val);
 
 #endif
