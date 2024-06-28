@@ -7,14 +7,14 @@
 typedef intptr_t val_t;
 
 typedef struct node {
-    val_t data;
-    struct node *next;
+  val_t data;
+  struct node *next;
 } node_t;
 
 typedef struct {
-    node_t *head;
-    node_t *tail;
-    uint32_t size;
+  node_t *head;
+  node_t *tail;
+  uint32_t size;
 } list_t;
 
 list_t *list_new();
